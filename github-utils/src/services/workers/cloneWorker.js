@@ -3,7 +3,7 @@
 const {spawn} = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const config = require('../../configuration/config.json');
+const config = require('../../configuration/config');
 
 const createDirectory = (targetDir) => {
     return new Promise((Resolve, Reject) => {

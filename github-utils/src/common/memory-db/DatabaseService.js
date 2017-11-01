@@ -1,29 +1,26 @@
 "use strict";
 
-const fs = require('fs');
+const DatabaseUtils = require('./DatabaseUtils');
 
-const databaseService = () => {
-    let getLocalRepos = () => {
+const DatabaseService = () => {
 
+    const getRepos = () => {
+        return DatabaseUtils.getRepos();
     };
 
-    let getLocalRepoDetails = (reponame) => {
-
-
+    const getRepoDetails = (reponame) => {
+        return DatabaseUtils.getRepoDetails(reponame);
     };
 
-    let addLocalRepo = (repodetails) => {
-
+    const addRepo = (newRepo) => {
+        DatabaseUtils.addRepo(newRepo);
     };
-
 
     return {
-        getRepos: getLocalRepos,
-        getRepoDetails: getLocalRepoDetails,
-        addLocalRepo: addLocalRepo
+        getRepos: getRepos,
+        getRepoDetails: getRepoDetails,
+        addRepo: addRepo
     };
-
 };
 
-
-module.exports = databaseService;
+module.exports = DatabaseService();

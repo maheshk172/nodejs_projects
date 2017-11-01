@@ -1,6 +1,6 @@
 "use strict";
 const request = require('request');
-const config = require('../configuration/config.json');
+const config = require('../configuration/config');
 
 const AdvancedRequest = () => {
 
@@ -34,4 +34,4 @@ const AdvancedRequest = () => {
 };
 
 
-module.exports = AdvancedRequest;
+module.exports = AdvancedRequest();

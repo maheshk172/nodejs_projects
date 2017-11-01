@@ -1,8 +1,8 @@
 'use strict';
 
-const RepositoryUtils = require('./repos/RepositoryUtils')();
+const RepositoryUtils = require('./services/RemoteRepoUtils')();
 const config = require('./configuration/config');
-const LocalRepoUtils = require('./clone-workers/LocalRepoUtils')();
+const LocalRepoUtils = require('./services/LocalRepoUtils')();
 
 const fetchReposForUser = (userName) => {
     RepositoryUtils.getAllReposForUser(userName)
@@ -13,5 +13,5 @@ const fetchReposForUser = (userName) => {
 };
 
 
-//Fetch All repos
+//Fetch All services
 fetchReposForUser(config.USER_NAME);

@@ -4,7 +4,7 @@ const {_} = require('lodash');
 const AdvancedRequest = require('../common/AdvancedRequest');
 const config = require('../configuration/config');
 
-const RepositoryUtils = () => {
+const RemoteRepoUtils = () => {
 
     const getOrganizations = (userName) => {
         return AdvancedRequest.get(`${config.GIT_API_BASE_PATH}/user/orgs`);
@@ -115,4 +115,4 @@ const RepositoryUtils = () => {
 };
 
 
-module.exports = RepositoryUtils();
+module.exports = RemoteRepoUtils();

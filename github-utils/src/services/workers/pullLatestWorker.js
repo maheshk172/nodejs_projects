@@ -3,7 +3,6 @@
 const {spawn} = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const config = require('../../configuration/config');
 
 const pullLatest = (repo) => {
     const pullChild = spawn('git', ['pull'], {

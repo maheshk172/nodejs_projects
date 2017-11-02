@@ -2,21 +2,21 @@
 
 const {_} = require('lodash');
 const AdvancedRequest = require('../common/AdvancedRequest');
-const config = require('../configuration/config');
+const Config = require('../configuration/Configuration');
 
 const RemoteRepoUtils = () => {
 
     const getOrganizations = (userName) => {
-        return AdvancedRequest.get(`${config.GIT_API_BASE_PATH}/user/orgs`);
+        return AdvancedRequest.get(`${Config.config.GIT_API_BASE_PATH}/user/orgs`);
     };
 
     const getPersonalReposForUser = (userName) => {
-        return AdvancedRequest.get(`${config.GIT_API_BASE_PATH}/users/${userName}/repos`);
+        return AdvancedRequest.get(`${Config.config.GIT_API_BASE_PATH}/users/${userName}/repos`);
     };
 
 
     const getReposForOrganization = (organizationName) => {
-        return AdvancedRequest.get(`${config.GIT_API_BASE_PATH}/orgs/${organizationName}/repos`);
+        return AdvancedRequest.get(`${Config.config.GIT_API_BASE_PATH}/orgs/${organizationName}/repos`);
     };
 
 
@@ -34,7 +34,7 @@ const RemoteRepoUtils = () => {
                                 getReposForOrganization(organization.login).then(repos => {
                                     let tempRepos = [];
                                     repos.forEach(repo => {
-                                        if (!repo.fork && config.EXCLUDE_REPOS.indexOf(repo.name) == -1) {
+                                        if (!repo.fork && Config.config.EXCLUDE_REPOS.indexOf(repo.name) == -1) {
                                             tempRepos.push({
                                                 name: repo.name,
                                                 owner: organization.login,
@@ -73,7 +73,7 @@ const RemoteRepoUtils = () => {
                     .then(repos => {
                         let tempRepos = [];
                         repos.forEach(repo => {
-                            if (!repo.fork && config.EXCLUDE_REPOS.indexOf(repo.name) == -1 ) {
+                            if (!repo.fork && Config.config.EXCLUDE_REPOS.indexOf(repo.name) == -1 ) {
                                 tempRepos.push({
                                     name: repo.name,
                                     owner: userName,

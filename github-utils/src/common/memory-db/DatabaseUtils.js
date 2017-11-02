@@ -55,29 +55,6 @@ const DatabaseUtils = () => {
         return result;
     };
 
-
-    /*let refreshLocalCache = () => {
-        console.log('refreshing the database');
-
-        fs.readFile(dbFile, (error, contents) => {
-
-            if (error) {
-                console.log('silently existing.. error thrown: ', error);
-                return;
-            }
-
-            let parsedContents = JSON.parse(contents);
-
-            if (!_.isEqual(parsedContents, localRepos)) {
-                console.log('Refreshing local Cache..');
-                console.log('Contents from database: ', contents.toString());
-                localRepos = parsedContents;
-            } else {
-                console.log('contents are still same, no need to refresh local cache..');
-            }
-        });
-    };*/
-
     let init = () => {
         return new Promise((Resolve, Reject) => {
             fs.readFile(dbFile, (error, contents) => {
@@ -88,14 +65,6 @@ const DatabaseUtils = () => {
                 localRepos = JSON.parse(contents);
                 Resolve();
             });
-
-            //keep reloading local cache every 1 min
-            /*
-            setInterval(() => {
-                console.log('triggering the change again');
-                refreshLocalCache();
-            }, 10000);
-            */
         });
     };
 

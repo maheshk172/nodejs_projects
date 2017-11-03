@@ -4,7 +4,7 @@ const fs = require('fs');
 const _ = require('lodash');
 
 const DatabaseUtils = () => {
-    let dbFile = './common/memory-db/memory_db.dat';
+    let dbFile = __dirname + '/memory_db.dat';
 
     //schema
     const localRepoTemplate = {
@@ -68,11 +68,22 @@ const DatabaseUtils = () => {
         });
     };
 
+    let cleanDB = () => {
+        fs.writeFile(dbFile, '[]', (error) => {
+            if (error) {
+                console.error('Unable to clear database, error thrown: ', error);
+                throw error;
+            }
+            console.log('Local Database has been purged successfully');
+        });
+    };
+
     return {
         addRepo: addRepo,
         getRepoDetails: getRepoDetails,
         getRepos: getRepos,
-        init: init
+        init: init,
+        cleanDB: cleanDB
     };
 };
 

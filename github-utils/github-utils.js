@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 'use strict';
-const Config = require('./configuration/Configuration');
+const Config = require(__dirname + '/configuration/Configuration');
 const RemoteRepoUtils = require('./services/RemoteRepoUtils');
 const DatabaseUtils = require('./common/memory-db/DatabaseUtils');
 const LocalRepoUtils = require('./services/LocalRepoUtils');
@@ -15,6 +15,8 @@ function printCommandHelp() {
     console.log('--show-details {repo-name}               Show details for repository');
     console.log('--clone {repo-url}                       Clone a new repository and add on utility');
     console.log('--pull-latest {repo-name}                Pull latest for repository from remote');
+    console.log('--clean-db                               Pull latest for repository from remote');
+    console.log('--init                                   Create Default .gitutils-rc file');
     console.log('');
 }
 
@@ -45,28 +47,26 @@ function printHelp() {
 
 }
 
+var args = process.argv.slice(2);
+
+if (args[0] === '--help' || args.length === 0) {
+    printHelp();
+    process.exit(1);
+}
+
+let command = args[0].substr(2, args[0].length - 1);
+if (command === 'init') {
+    Config.createDefaultConfigFile();
+}
+
 
 Config.init().then((newConfig) => {
-
     Config.config = newConfig;
-
-    console.log('Configuration Object is configured properly');
     DatabaseUtils.init()
         .then(() => {
             // args[0] -> command
             // args[1] -> first Param
             // args[2] -> second param
-            var args = process.argv.slice(2);
-
-
-            if (args[0] === '--help' || args.length === 0) {
-                printHelp();
-                process.exit(1);
-            }
-
-            let command = args[0].substr(2, args[0].length - 1);
-
-
             switch (command) {
                 case 'clone-all':
                     RemoteRepoUtils.getAllReposForUser(Config.config.USER_NAME)
@@ -98,6 +98,11 @@ Config.init().then((newConfig) => {
                     } else {
                         printHelp();
                     }
+                    break;
+                case 'clean-db':
+                    DatabaseUtils.cleanDB();
+                    break;
+                case 'init':
                     break;
                 default:
                     printHelp();

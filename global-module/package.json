@@ -1,0 +1,25 @@
+{
+  "name": "global-module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "bin": {
+    "test-module-exec": "bin/test-module.js"
+  },
+  "main" : "./lib/server.js",
+  "preferGlobal": "true",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maheshk172/nodejs_projects.git"
+  },
+  "keywords": [
+    "global",
+    "first"
+  ],
+  "author": "Mahesh Kulkarni",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maheshk172/nodejs_projects/issues"
+  },
+  "homepage": "https://github.com/maheshk172/nodejs_projects#readme"
+}

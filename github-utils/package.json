@@ -1,11 +1,15 @@
 {
   "name": "github-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Nodejs based Github Wrapper for downloading multiple projects",
   "main": "github-utils.js",
   "scripts": {
     "test": "npm test"
   },
+  "bin":{
+    "github-utils":"github-utils.js"
+  },
+  "preferGlobal": true,
   "keywords": [
     "github",
     "utilities"

@@ -1,6 +1,7 @@
 "use strict";
 
 const ConfigFileHelper = require('./ConfigFileHelper');
+const fs = require('fs');
 
 const ConfigBuilder = () => {
 
@@ -24,9 +25,14 @@ const ConfigBuilder = () => {
         });
     };
 
+    const createUserConfigFile = () => {
+        ConfigFileHelper.createDefaultConfigFile(defaultConfig);
+    };
+
     return {
         init: init,
         config: config,
+        createDefaultConfigFile: createUserConfigFile
     };
 
 };

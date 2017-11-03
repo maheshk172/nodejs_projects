@@ -6,7 +6,7 @@ const LocalRepoUtils = () => {
     const DEFAULT_BRANCH = 'MASTER';
 
     const cloneRepo = (repo) => {
-        const cloneFork = fork('./services/workers/cloneWorker.js');
+        const cloneFork = fork(__dirname + '/workers/cloneWorker.js');
 
         cloneFork.on('message', (updatedRepo) => {
             if (updatedRepo) {
@@ -22,7 +22,7 @@ const LocalRepoUtils = () => {
         console.log('Fetching details for repo: ', repoName);
         let repo = DatabaseService.getRepoDetails(repoName);
         if (repo) {
-            const pullLatestWorkerFork = fork('./services/workers/pullLatestWorker.js');
+            const pullLatestWorkerFork = fork(__dirname + '/workers/pullLatestWorker.js');
 
             pullLatestWorkerFork.on('message', (message) => {
                 console.log(message);

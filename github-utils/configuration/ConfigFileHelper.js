@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const os = require('os');
+const path = require('path');
 
 const ConfigFileHelper = () => {
     const loadPropertiesFromFile = (filePath) => {
@@ -42,8 +43,8 @@ const ConfigFileHelper = () => {
 
         return new Promise((Resolve, Reject) => {
 
-            let userHomeDirectory = os.homedir() + '\\';
-            loadPropertiesFromFile(`${userHomeDirectory}.gitutils-rc`)
+            let userHomeDirectory = os.homedir();
+            loadPropertiesFromFile(path.join(userHomeDirectory, '.gitutils-rc'))
                 .then(buildConfigObject)
                 .then((userConfig) => {
                     Resolve(userConfig);
@@ -67,9 +68,22 @@ const ConfigFileHelper = () => {
         return finalConfig;
     };
 
+    const createDefaultConfigFile = (defaultConfig) => {
+        let configFilePath = path.join(os.homedir(), '.gitutils-rc');
+        fs.writeFile(configFilePath, JSON.stringify(defaultConfig), (error) => {
+            if (error) {
+                console.error('Unable to create default config file, error thrown: ', error);
+                throw error;
+            }
+
+            console.log(`${configFilePath} file created with default values, please amend them with your credentials`);
+        });
+    };
+
     return {
         getConfigFromHomeDirectory: getConfigFromHomeDirectory,
-        mergeConfigObjects: mergeConfigObjects
+        mergeConfigObjects: mergeConfigObjects,
+        createDefaultConfigFile: createDefaultConfigFile
     };
 };
 

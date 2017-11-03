@@ -40,13 +40,15 @@ const cloneRepo = (repo) => {
         };
 
         createDirectory(`${baseDirectory}`).then((data) => {
+            repo.localPath = `${Config.config.LOCAL_REPO_BASE_PATH}/${repo.owner}` + '/' + repo.name;
 
             if (fs.existsSync(`${Config.config.LOCAL_REPO_BASE_PATH}/${repo.owner}/${repo.name}`)) {
                 console.log(`Directory already exist with repo name : ${repo.name}, worker shutdown`);
+                process.send(repo);
                 process.exit(0);
             } else {
                 console.log(`Cloning repo ${repo.cloneUrl} into directory: ${baseDirectory}`);
-
+                repo.localPath = `${Config.config.LOCAL_REPO_BASE_PATH}/${repo.owner}` + '/' + repo.name;
                 const clone = spawn('git', ['clone', repo.cloneUrl], {
                     cwd: `${Config.config.LOCAL_REPO_BASE_PATH}/${repo.owner}`
                 });
@@ -62,7 +64,6 @@ const cloneRepo = (repo) => {
 
                 clone.on('close', (code) => {
                     console.log(`repository ${repo.cloneUrl} has been downloaded successfully..., worker Shutdown`);
-                    repo.localPath = `${Config.config.LOCAL_REPO_BASE_PATH}/${repo.owner}` + '/' + repo.name;
                     process.send(repo);
                     process.exit(0);
                 });
